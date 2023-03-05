@@ -1,4 +1,4 @@
-package com.example.inventory;
+package com.example.insulin;
 
 public class OrderPlacedEvent {
 	
