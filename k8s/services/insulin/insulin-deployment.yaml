@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: insulin
+  name: insulin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insulin
+  strategy: {}
+  template:
+    metadata:
+
+      labels:
+        app: insulin
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+          image: giampa91/insulin:latest
+          name: insulin
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: insulin
+  name: insulin
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 9191
+  selector:
+    app: insulin
+status:
+  loadBalancer: {}

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user
+  name: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  strategy: {}
+  template:
+    metadata:
+
+      labels:
+        app: user
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+          image: user:latest
+          name: user
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: user
+  name: user
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 9191
+  selector:
+    app: user
+status:
+  loadBalancer: {}
