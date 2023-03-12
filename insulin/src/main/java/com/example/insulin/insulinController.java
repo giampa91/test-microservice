@@ -12,12 +12,22 @@ public class insulinController
 {
 	@Autowired
 	KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
+	
+	@Autowired
+	InsulinService insulinService;
      
     @GetMapping(path="", produces = "application/json")
     public String getInsulin() 
     {
     	//kafkaTemplate.send("notification-topic", new OrderPlacedEvent(5));
         return "I am the insulin service";
+    }
+    
+    @GetMapping(path="/user", produces = "application/json")
+    public String getUser() 
+    {
+    	//kafkaTemplate.send("notification-topic", new OrderPlacedEvent(5));
+        return insulinService.getUser();
     }
 
 }
